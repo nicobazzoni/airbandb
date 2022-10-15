@@ -1,8 +1,30 @@
 import Image from "next/image"
 import {Bars3Icon, MagnifyingGlassIcon, UserCircleIcon, UserIcon, GlobeAltIcon, ShoppingCartIcon} from '@heroicons/react/24/outline'
+import { useState } from "react";
+import 'react-date-range/dist/styles.css'; // main style file
+import 'react-date-range/dist/theme/default.css'; // theme css file
+import { DateRangePicker } from "react-date-range";
 
 
 function Header() {
+     const [searchInput, setSearchInput] = useState("");
+    const [startDate, setStartDate] = useState(new Date());
+    const [endDate, setEndDate] = useState(new Date());
+
+    const handleSelect = (ranges) => {  
+        setStartDate(ranges.selection.startDate);
+        setEndDate(ranges.selection.endDate);
+    };
+
+
+ 
+ 
+    const selectionRange = {
+        startDate: startDate,
+        endDate: endDate,
+        key: 'selection',
+
+    }
    
   return (
     <header className="sticky top-0 z-50 grid grid-cols-3 bg-white shadow-md 
@@ -17,13 +39,14 @@ function Header() {
             
             />
         </div>
-
-        
-        
-        
-
             <div className="flex items-center md:border-2 rounded-full py-2 md:shadow-sm" >
-                <input className="flex-grow pl-5 bg-transparent outline-none rounded-full w-64 px-4 py-2 text-sm" type="text" placeholder="Start your search" />
+                <input 
+                value={searchInput}
+                onChange={(e) => setSearchInput(e.target.value)}
+                className="flex-grow pl-5 bg-transparent outline-none rounded-full w-64 px-4 py-2 text-sm" 
+                type="text" 
+                placeholder="Start your search" 
+                 />
             
 
            <MagnifyingGlassIcon  className="hidden md:inline-flex h-8 
@@ -44,6 +67,23 @@ function Header() {
             </div>
             <UserIcon className="h-6 cursor-pointer" />
         </div>
+        {searchInput && (
+         <div>
+            <DateRangePicker 
+            ranges={[selectionRange]}
+            minDate={new Date()}
+            rangeColors={["#FD5B61"]}
+            onChange={handleSelect}
+
+
+            
+
+                
+                
+                />
+
+         </div> 
+         )}
     </header>
   )
 }
