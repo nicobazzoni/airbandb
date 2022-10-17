@@ -14,7 +14,7 @@ import {GoSearch} from 'react-icons/go'
 import {IoSearchOutline} from 'react-icons/io5'
 
 
-function Header({}) {
+function Header({placeholder}) {
     const [searchInput, setSearchInput] = useState("");
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
@@ -52,7 +52,7 @@ function Header({}) {
     const selectionRange = {
         startDate: startDate,
         endDate: endDate,
-        key: 'selection',
+        key: 'selection' ,
 
     }
    
@@ -77,7 +77,7 @@ function Header({}) {
                 onChange={(e) => setSearchInput(e.target.value)}
                 className="flex-grow pl-5 bg-transparent outline-none rounded-full w-64 px-4 py-2 text-sm" 
                 type="text" 
-                placeholder= "Start your search" 
+                placeholder= { placeholder || "Start your search" }
                  />
                  
             <IoSearchOutline className="hidden md:inline-flex m-2 h-6 cursor-pointer"  />
